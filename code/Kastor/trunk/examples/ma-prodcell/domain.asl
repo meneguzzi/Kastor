@@ -40,7 +40,7 @@ east(transferBelt).
 	<- +type(Block, Type).
 
 +over(Object, Device) [source(percept)] : not over(Object, Device)[source(self)]
-	<-  .print("Acknowledging ",over(Object, Device));
+	<-  //.print("Acknowledging ",over(Object, Device));
 		+over(Object, Device).
 
 //-----------------------------------------------------------------------------

@@ -11,6 +11,8 @@ import jason.asSemantics.Unifier;
 import jason.asSyntax.ListTerm;
 import jason.asSyntax.ListTermImpl;
 import jason.asSyntax.Plan;
+import jason.asSyntax.StringTerm;
+import jason.asSyntax.StringTermImpl;
 import jason.asSyntax.Term;
 
 /**
@@ -40,7 +42,8 @@ public class shared_plans implements InternalAction {
 		
 		ListTerm planList = new ListTermImpl();
 		for(Plan plan : sharedPlans) {
-			planList.add(plan.getTriggerEvent().getLiteral());
+			StringTerm planSrc = StringTermImpl.parseString(plan.toASString());
+			planList.add(planSrc);
 		}
 		
 		Unifier unifier = new Unifier();

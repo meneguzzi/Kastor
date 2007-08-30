@@ -68,6 +68,37 @@ logging(true).
          action2,
          action3]).*/
 
+//A test of the remote action to process a block
+@action4(block, procUnit)[atomic]
++!remoteProcessWest(Block, ProcUnit) : over(Block, ProcUnit) & west(ProcUnit)
+   <- .print("Asking ",controllerWest," to process ",Block," in ",ProcUnit);
+      .send(controllerWest,achieve,requestProcessWest(Block, ProcUnit));
+      !print("Waiting for ",controllerWest," to act.");
+      .wait("+done(processWest)[source(controllerWest)]");
+      !print(done(processWest(Block, ProcUnit))[source(controllerWest)]);
+      +processed(Block, ProcUnit);
+      true.
+
+//A test of the remote action to move a block
+@action6(block, device, device)[atomic]
++!remoteMoveWest(Block, Device1, Device2)
+   : over(Block,Device1) & empty(Device2) & west(Device1) & west(Device2)
+   <- .print("Asking ",controllerWest, " to move ",Block," from ",Device1," to ",Device2);
+      .send(controllerWest,achieve,requestMoveWest(Block, Device1, Device2));
+      !print("Waiting for ",controllerWest," to act.");
+      .wait("+done(moveWest)[source(controllerWest)]");
+      !print(done(moveWest(Block, Device1, Device2))[source(controllerWest)]);
+      +over(Block, Device2);
+      -over(Block, Device1);
+      -empty(Device2);
+      +empty(Device1);
+      true.
+
+//A debugging plan to check if the done message was received
++done(Act) [source(S)] : true
+   <- .print("Got message ", done(Act)[source(S)]);
+      true.
+
 +!gatherSharedOperators : true
    <- !print("Gathering shared operators");
       .send(controllerWest,askOne,sharedOperators(S),A);
