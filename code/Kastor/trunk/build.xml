@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     30 Aug 2007 13:27:44                                                        
+
+     Kastor    
+     A cooperative agent.
+                   
+     meneguzz                                                                
+     ====================================================================== -->
+<project name="Kastor" default="jar">
+    <description>
+            A cooperative agent.
+    </description>
+
+    <!-- ================================= 
+          target: jar              
+         ================================= -->
+    <target name="jar" depends="init" description="--> A cooperative agent.">
+        
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: init                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="init">
+    </target>
+
+</project>
