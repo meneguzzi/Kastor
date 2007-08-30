@@ -19,6 +19,10 @@ public class add_external_plan implements InternalAction {
 		if(args.length != 2) {
 			throw new JasonException("The internal action 'add_external_plan' has not received two arguments.");
 		}
+		//Initially, we simply add the actions as regular ones, each action
+		//associated with an agent
+		String actionName = args[0].toString();
+		String agentName = args[1].toString();
 		
 		return null;
 	}

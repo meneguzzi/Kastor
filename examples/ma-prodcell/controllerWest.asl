@@ -25,10 +25,11 @@
 
 
 //-----------------------------------------------------------------------------
-//                    East Controller Actions
+//                    West Controller Actions
 //-----------------------------------------------------------------------------
 @action4(block, procUnit)
-+!processWest(Block, ProcUnit) : over(Block, ProcUnit) & west(ProcUnit)
++!processWest(Block, ProcUnit)
+   : over(Block, ProcUnit) & west(ProcUnit)
    <- .print("Processing ",Block," in ",ProcUnit);
       //.wait(50);
       +processed(Block, ProcUnit);
@@ -44,7 +45,7 @@
       consume(Block).
 
 @action6(block, device, device)
-+!moveWest(Block, Device1, Device2) 
++!moveWest(Block, Device1, Device2)
    : over(Block,Device1) & empty(Device2) & west(Device1) & west(Device2)
    <- .print("Moving ",Block," from ",Device1," to ",Device2);
       //.wait(50);
@@ -82,5 +83,20 @@ shared([action4,
       !print("Shared plans: ",Plans);
       true.
 
++!requestProcessWest(Block, ProcUnit) [source(S)] : true
+   <- .print(S," asked me to process ",Block," in ",ProcUnit);
+      !processWest(Block, ProcUnit);
+      .print("Informing ",S," that I acted.");
+      .send(S,tell,done(processWest));
+      .print("Message sent: ",done(processWest));
+      true.
+
++!requestMoveWest(Block, Device1, Device2) [source(S)] : true
+   <- .print(S," asked me to move ",Block," from ",Device1," to ",Device2);
+      !moveWest(Block, Device1, Device2);
+      .print("Informing ",S," that I acted.");
+      .send(S,tell,done(moveWest));
+      .print("Message sent: ",done(moveWest));
+      true.
 //{include("controllerActions.asl")}
 {include("peleus.asl")}
