@@ -67,6 +67,12 @@ logging(true).
 /*shared([action1,
          action2,
          action3]).*/
+         
+//A debugging plan to check if the done message was received
++done(Act) [source(S)] : true
+   <- .print("Got message ", done(Act)[source(S)]);
+      -done(Act) [source(S)];
+      true.
 
 //A test of the remote action to process a block
 @action4(block, procUnit)[atomic]
@@ -92,11 +98,6 @@ logging(true).
       -over(Block, Device1);
       -empty(Device2);
       +empty(Device1);
-      true.
-
-//A debugging plan to check if the done message was received
-+done(Act) [source(S)] : true
-   <- .print("Got message ", done(Act)[source(S)]);
       true.
 
 +!gatherSharedOperators : true
