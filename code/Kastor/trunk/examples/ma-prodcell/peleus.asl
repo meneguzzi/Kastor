@@ -2,7 +2,7 @@
 //               Plan that invokes the Planner
 //-----------------------------------------------------------------------------
 +!goalConj(Goals) : true
-	<- org.soton.peleus.act.plan(Goals,10,false);
+	<- org.soton.peleus.act.plan(Goals,[maxSteps(10),makeGeneric(true),makeAtomic(true)]);
 	   .print("Goals ",Goals," were satisfied").
 
 -!goalConj(Goals) : true

@@ -12,19 +12,6 @@ logging(true).
 		!finish(Block);
 		!writeStats(Time1).
 
-//---------------------------------------
-//Cleanup of unnecessary beliefs
-//---------------------------------------
-+finished(Block) : object(block,Block)
-	<-  -object(block,Block)[source(self)];
-	   -type(Block,_)[source(self)];
-	   -finished(Block)[source(self)];
-	   .abolish(processed(Block,_)[source(self)]);
-	   ?totalBlocks(B);
-	   -+totalBlocks(B+1);
-	   .print("Cleaned up beliefs about ", Block).
-
-
 //-----------------------------------------------------------------------------
 //                    East Controller Actions
 //-----------------------------------------------------------------------------
@@ -62,12 +49,8 @@ logging(true).
 -!goalConj(Goals) : not tried
 	<- .print("Failed planning for Goals ",Goals,", will try another strategy");
 	   +tried;
-	   !gatherSharedOperators.
+	   org.soton.peleus.act.plan(Goals,[useRemote(true)]).
 
-/*shared([action1,
-         action2,
-         action3]).*/
-         
 //A debugging plan to check if the done message was received
 +done(Act) [source(S)] : true
    <- .print("Got message ", done(Act)[source(S)]);
@@ -75,7 +58,7 @@ logging(true).
       true.
 
 //A test of the remote action to process a block
-@action4(block, procUnit)[atomic]
+@action4(block, procUnit)[atomic,remote]
 +!remoteProcessWest(Block, ProcUnit) : over(Block, ProcUnit) & west(ProcUnit)
    <- .print("Asking ",controllerWest," to process ",Block," in ",ProcUnit);
       .send(controllerWest,achieve,requestProcessWest(Block, ProcUnit));
@@ -86,7 +69,7 @@ logging(true).
       true.
 
 //A test of the remote action to move a block
-@action6(block, device, device)[atomic]
+@action6(block, device, device)[atomic,remote]
 +!remoteMoveWest(Block, Device1, Device2)
    : over(Block,Device1) & empty(Device2) & west(Device1) & west(Device2)
    <- .print("Asking ",controllerWest, " to move ",Block," from ",Device1," to ",Device2);
@@ -116,5 +99,6 @@ logging(true).
 +!addSharedOperators([Plan | Plans]) : true
    <- .add_plan(Plan);
       !addSharedOperators(Plans).
+      
 //{include("controllerActions.asl")}
 {include("peleus.asl")}

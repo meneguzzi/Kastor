@@ -1,18 +1,19 @@
 //-----------------------------------------------------------------------------
 //                Domain-related Instructions to Graphplan
 //-----------------------------------------------------------------------------
-object(procUnit, pu1).
-object(procUnit, pu2).
-object(procUnit, pu3).
-object(procUnit, pu4).
-object(device, pu1).
-object(device, pu2).
-object(device, pu3).
-object(device, pu4).
-object(device, depositBelt).
-object(device, transferBelt).
-object(device, feedBelt1).
-object(device, feedBelt2).
+
+procUnit(pu1).
+procUnit(pu2).
+procUnit(pu3).
+procUnit(pu4).
+device(pu1).
+device(pu2).
+device(pu3).
+device(pu4).
+device(depositBelt).
+device(transferBelt).
+device(feedBelt1).
+device(feedBelt2).
 
 west(feedBelt1).
 west(pu1).
@@ -33,8 +34,14 @@ east(transferBelt).
 +empty(Device) [source(percept)] : true
 	<- +empty(Device).
 
-+object(Type, Object) [source(percept)] : not object(Type, Object) [source(self)]
-	<- +object(Type, Object).
++procUnit(ProcUnit) [source(percept)] : not procUnit(ProcUnit) [source(self)]
+   <- +procUnit(ProcUnit).
+
++device(Device) [source(percept)] : not device(Device) [source(self)]
+   <- +device(Device).
+
++block(Block) [source(percept)] : not block(Block) [source(self)]
+   <- +block(Block).
 
 +type(Block, Type) [source(percept)] : not type(Block, Type) [source(self)]
 	<- +type(Block, Type).
@@ -42,6 +49,19 @@ east(transferBelt).
 +over(Object, Device) [source(percept)] : not over(Object, Device)[source(self)]
 	<-  //.print("Acknowledging ",over(Object, Device));
 		+over(Object, Device).
+
+//---------------------------------------
+//Cleanup of unnecessary beliefs
+//---------------------------------------
++finished(Block) : block(Block)
+   <- -block(Block)[source(self)];
+      -type(Block,_)[source(self)];
+      -finished(Block)[source(self)];
+      .abolish(processed(Block,_)[source(self)]);
+      ?totalBlocks(B);
+      -+totalBlocks(B+1);
+      .print("Cleaned up beliefs about ", Block).
+
 
 //-----------------------------------------------------------------------------
 //               Instructions on how to finish processing blocks
