@@ -35,7 +35,9 @@
 	-->
 	
 	<step time="2">
-		object(block, block3).
+	    //deprecated representation
+		//object(block, block3).
+		block(block3).
 		type(block3, type3).
 		over(block3, feedBelt2).
 	</step>
