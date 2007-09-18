@@ -1,7 +1,10 @@
 {include("print.asl")}
 {include("domain.asl")}
 {include("stats.asl")}
-logging(true).
+
+//logging(true).
+logging(false).
+
 //-----------------------------------------------------------------------------
 //                   Plans to trigger processing of blocks
 //-----------------------------------------------------------------------------
@@ -46,14 +49,32 @@ logging(true).
 //                 Plans to act along with multiple agents
 //-----------------------------------------------------------------------------
 
--!goalConj(Goals) : not tried
-	<- .print("Failed planning for Goals ",Goals,", will try another strategy");
-	   +tried;
-	   org.soton.peleus.act.plan(Goals,[useRemote(true)]).
+//--------------------------
+// Exported plans
+//--------------------------
++!requestProcessEast(Block, ProcUnit) [source(S)] : true
+   <- .print(S," asked me to process ",Block," in ",ProcUnit);
+      !processEast(Block, ProcUnit);
+      !print("Informing ",S," that I acted.");
+      .send(S,tell,done(processEast));
+      !print("Message sent: ",done(processEast));
+      true.
+
++!requestMoveEast(Block, Device1, Device2) [source(S)] : true
+   <- .print(S," asked me to move ",Block," from ",Device1," to ",Device2);
+      !moveEast(Block, Device1, Device2);
+      !print("Informing ",S," that I acted.");
+      .send(S,tell,done(moveEast));
+      !print("Message sent: ",done(moveEast));
+      true.
+
+//--------------------------
+// Imported plans
+//--------------------------
 
 //A debugging plan to check if the done message was received
 +done(Act) [source(S)] : true
-   <- .print("Got message ", done(Act)[source(S)]);
+   <- !print("Got message ", done(Act)[source(S)]);
       -done(Act) [source(S)];
       true.
 
@@ -82,6 +103,8 @@ logging(true).
       -empty(Device2);
       +empty(Device1);
       true.
+
+//-----------------------------------------------------------------------------
 
 +!gatherSharedOperators : true
    <- !print("Gathering shared operators");

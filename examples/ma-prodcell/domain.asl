@@ -53,15 +53,16 @@ east(transferBelt).
 //---------------------------------------
 //Cleanup of unnecessary beliefs
 //---------------------------------------
-+finished(Block) : block(Block)
++finished(Block) [source(percept)] : block(Block)
    <- -block(Block)[source(self)];
       -type(Block,_)[source(self)];
       -finished(Block)[source(self)];
+      -over(Block,depositBelt)[source(self)];
       .abolish(processed(Block,_)[source(self)]);
+      .abolish(over(Block,_)[source(self)]);
       ?totalBlocks(B);
       -+totalBlocks(B+1);
       .print("Cleaned up beliefs about ", Block).
-
 
 //-----------------------------------------------------------------------------
 //               Instructions on how to finish processing blocks

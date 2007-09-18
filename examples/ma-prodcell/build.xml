@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     7 May 2007 15:20:04                                                        
+
+     ma-prodcell    
+     Multi Agent Production Cell Experiment
+                   
+     Felipe                                                                
+     ====================================================================== -->
+<project name="ma-prodcell" default="run-tests">
+	<description>
+            Multi Agent Production Cell Experiment
+    </description>
+
+	<property name="mas2j.project.file" value="ProdCell.mas2j" />
+	<property name="debug" value="" />
+	<!-- use "-debug" to run in debug mode -->
+
+	<property name="workspace.location" value="c:/Local Files/workspace/" />
+	<property name="jasonJar" value="${workspace.location}/JasonSVN/build" />
+
+	<path id="project.classpath">
+		<!-- pathelement location="."/> -->
+		<pathelement location="${jasonJar}" />
+		<pathelement location="${workspace.location}/Kastor/bin" />
+		<pathelement location="${workspace.location}/Peleus/bin" />
+		<pathelement location="${workspace.location}/JasonEnvironment/bin" />
+		<pathelement location="${workspace.location}/JavaGP/bin" />
+		<pathelement location="${workspace.location}/Peleus/lib/jemplan.jar" />
+	</path>
+
+	<path id="library.path">
+		<pathelement location="${workspace.location}/Peleus/lib" />
+	</path>
+	
+	<!-- ================================= 
+          target: run-all-tests              
+         ================================= -->
+    <target name="run-all-tests" depends="init" description="--> description">
+    	<echo message="Running meta-strategy agents"/>
+    	<echo message="Meta-level Strategy" file="statsEast.txt" append="true"/>
+    	<echo message="Meta-level Strategy" file="statsWest.txt" append="true"/>
+    	<copy file="peleusMeta.asl" tofile="peleus.asl" overwrite="true"/>
+    	<antcall target="run-tests"></antcall>
+    	
+    	<echo message="Running no-strategy agents"/>
+    	<echo message="No Strategy" file="statsEast.txt" append="true"/>
+		<echo message="No Strategy" file="statsWest.txt" append="true"/>
+    	<copy file="peleusDumb.asl" tofile="peleus.asl" overwrite="true"/>
+    	<antcall target="run-tests"></antcall>
+    </target>
+
+
+
+	<!-- ================================= 
+          target: run-tests              
+         ================================= -->
+	<target name="run-tests" depends="init" description="--> Production Cell Experiment">
+		<antcall target="run-test">
+			<param name="test.number" value="1" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+		<antcall target="run-test">
+			<param name="test.number" value="2" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+		<antcall target="run-test">
+			<param name="test.number" value="3" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+		<antcall target="run-test">
+			<param name="test.number" value="4" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+		<antcall target="run-test">
+			<param name="test.number" value="5" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+		<antcall target="run-test">
+			<param name="test.number" value="6" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+		<antcall target="run-test">
+			<param name="test.number" value="7" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+		<antcall target="run-test">
+			<param name="test.number" value="8" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+		<antcall target="run-test">
+			<param name="test.number" value="9" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+		<antcall target="run-test">
+			<param name="test.number" value="10" />
+			<param name="project.file" value="MAProdCellTest.mas2j" />
+		</antcall>
+	</target>
+
+	<!-- ================================= 
+          target: generate-scripts              
+         ================================= -->
+	<target name="generate-scripts" depends="init" description="--> Generates the test scripts">
+		<antcall target="generate-script">
+			<param name="script.size" value="1" />
+			<param name="output.file" value="generatedScript1.xml" />
+		</antcall>
+		<antcall target="generate-script">
+			<param name="script.size" value="2" />
+			<param name="output.file" value="generatedScript2.xml" />
+		</antcall>
+		<antcall target="generate-script">
+			<param name="script.size" value="3" />
+			<param name="output.file" value="generatedScript3.xml" />
+		</antcall>
+		<antcall target="generate-script">
+			<param name="script.size" value="4" />
+			<param name="output.file" value="generatedScript4.xml" />
+		</antcall>
+		<antcall target="generate-script">
+			<param name="script.size" value="5" />
+			<param name="output.file" value="generatedScript5.xml" />
+		</antcall>
+		<antcall target="generate-script">
+			<param name="script.size" value="6" />
+			<param name="output.file" value="generatedScript6.xml" />
+		</antcall>
+		<antcall target="generate-script">
+			<param name="script.size" value="7" />
+			<param name="output.file" value="generatedScript7.xml" />
+		</antcall>
+		<antcall target="generate-script">
+			<param name="script.size" value="8" />
+			<param name="output.file" value="generatedScript8.xml" />
+		</antcall>
+		<antcall target="generate-script">
+			<param name="script.size" value="9" />
+			<param name="output.file" value="generatedScript9.xml" />
+		</antcall>
+		<antcall target="generate-script">
+			<param name="script.size" value="10" />
+			<param name="output.file" value="generatedScript10.xml" />
+		</antcall>
+	</target>
+
+	<!-- ================================= 
+          target: generate-script
+          Needs a property to be set              
+         ================================= -->
+	<target name="generate-script" depends="init" description="--> Generates a script with the specified size">
+		<!-- We expect a property to be set from the outside, 
+             the following is the default value-->
+		<property name="script.size" value="1" />
+		<property name="output.file" value="generatedScript.xml" />
+
+		<property name="initial-beliefs" value="empty(pu1) empty(pu2) empty(pu3) empty(pu4) empty(depositBelt) empty(transferBelt)" />
+		<property name="final-events" value="endSimulation" />
+		<property name="params" value="-steps ${script.size}0 -firststep 5 -stepsize 10 -initbeliefs ${initial-beliefs} -finalevents ${final-events} -wipe 6" />
+		<java classname="util.ScriptGenerator" failonerror="true" fork="yes" dir="${basedir}/scripts">
+			<classpath refid="project.classpath" />
+			<arg line="-o ${output.file} ${params}" />
+		</java>
+	</target>
+
+
+	<!-- ================================= 
+          target: run-test              
+         ================================= -->
+	<target name="run-test" depends="init" description="--> runs one test">
+		<property name="test.number" value="1" />
+		<property name="project.file" value="MAProdCellTest.mas2j" />
+
+		<echo message="Running test ${test.number}" />
+
+		<copy file="scripts/generatedScript${test.number}.xml" tofile="scripts/generatedScript.xml" overwrite="true"/>
+
+		<java classname="jason.infra.centralised.RunCentralisedMAS" failonerror="true" fork="yes" dir="${basedir}">
+			<classpath refid="project.classpath" />
+			<jvmarg line="-Djava.library.path='${workspace.location}/Peleus/lib'" />
+			<arg line="${project.file} ${debug}" />
+		</java>
+	</target>
+
+
+	<!-- ================================= 
+          target: cleanup              
+         ================================= -->
+	<target name="cleanup" depends="init" description="--> Removes all generated files">
+		<delete dir="scripts">
+		</delete>
+	</target>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: init                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="init">
+		<mkdir dir="${basedir}/scripts" />
+	</target>
+
+</project>

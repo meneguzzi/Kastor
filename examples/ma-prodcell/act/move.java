@@ -29,20 +29,25 @@ public class move implements ExternalAction<ScriptedEnvironment> {
 			Literal empty1 = Literal.parseLiteral("empty("+terms[2]+")");
 			if(!env.containsPercept(over1)) {
 				logger.warning(terms[0]+" is not over "+terms[1]);
+			} else {
+				env.removePercept(over1);
 			}
+			
 			if(!env.containsPercept(empty1)) {
 				logger.warning(terms[2]+" is not empty");
+			} else {
+				env.removePercept(empty1);
 			}
 			Literal over = Literal.parseLiteral("over("+terms[0]+","+terms[2]+")");
-			Literal notOver = Literal.parseLiteral("~over("+terms[0]+","+terms[1]+")");
+			//Literal notOver = Literal.parseLiteral("~over("+terms[0]+","+terms[1]+")");
 			
 			Literal empty = Literal.parseLiteral("empty("+terms[1]+")");
-			Literal notEmpty = Literal.parseLiteral("~empty("+terms[2]+")");
+			//Literal notEmpty = Literal.parseLiteral("~empty("+terms[2]+")");
 			
 			env.addPercept(over);
-			env.addPercept(notOver);
+			//env.addPercept(notOver);
 			env.addPercept(empty);
-			env.addPercept(notEmpty);
+			//env.addPercept(notEmpty);
 			
 			return true;
 		}

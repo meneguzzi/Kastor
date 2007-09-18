@@ -25,14 +25,15 @@ public class consume implements ExternalAction<ScriptedEnvironment> {
 			Literal over = Literal.parseLiteral("over("+terms[0]+",depositBelt)");
 			if(!env.containsPercept(over)) {
 				logger.warning(terms[0]+" is not over depositBelt");
+			} else {
 				env.removePercept(over);
 			}
 			
-			Literal notOver = new Literal(false, over);
+			//Literal notOver = new Literal(false, over);
 			Literal empty = Literal.parseLiteral("empty(depositBelt)");
 			Literal finished = Literal.parseLiteral("finished("+terms[0]+")");
 			
-			env.addPercept(notOver);
+			//env.addPercept(notOver);
 			env.addPercept(empty);
 			env.addPercept(finished);
 			return true;

@@ -20,11 +20,24 @@ totalBlocks(0).
 +endSimulation : true
 	<- !endSimulation.
 
++!endSimulation : .my_name(controllerWest)
+	<- .print("Simulation is over, writing stats.");
+	   ?totalBlocks(B);
+	   .print("Processed ",B," blocks");
+	   ?totalTime(T);
+	   .print("Total time planning was ",T," milliseconds");
+	   stats.recordStats("statsWest",B,T);
+	   .wait(1000);
+	   .send(controllerEast,tell,endSimulation(west));
+	   true.
+
 +!endSimulation : true
 	<- .print("Simulation is over, stopping MAS.");
-		?totalBlocks(B);
-		.print("Processed ",B," blocks");
-		?totalTime(T);
-		.print("Total time planning was ",T," milliseconds");
-		prodcell.recordStats(B,T,"stats");
-		.stopMAS.
+	   ?totalBlocks(B);
+	   .print("Processed ",B," blocks");
+	   ?totalTime(T);
+	   .print("Total time planning was ",T," milliseconds");
+	   stats.recordStats("statsEast",B,T);
+	   .wait("+endSimulation(west)[source(controllerWest)]");
+	   .stopMAS;
+	   true.
