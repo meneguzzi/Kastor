@@ -1,11 +1,11 @@
 //-----------------------------------------------------------------------------
 //               Plan that invokes the Planner
-//                     Straight to Cooperation
+//                          First single agent
 //-----------------------------------------------------------------------------
 
 +!goalConj(Goals) : true
-	<- !goalConj(Goals,useRemote(true));
-	   .print("Goals ",Goals," were satisfied").	   
+	<- org.soton.peleus.act.plan(Goals,[maxSteps(10),makeGeneric(true),makeAtomic(true)]);
+	   .print("Goals ",Goals," were satisfied").
 
 +!goalConj(Goals,useRemote(true)) : true
 	<- .print("Trying to cooperate to solve the problem");

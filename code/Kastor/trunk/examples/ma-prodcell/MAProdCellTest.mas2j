@@ -1,0 +1,10 @@
+/* Jason Project */
+
+MAS maprodcelltest {
+	environment: 
+         org.kcl.jason.env.scripted.ScriptedEnvironment("scripts/generatedScript.xml",act)
+
+	agents: 
+		controllerEast;
+		controllerWest;
+}
