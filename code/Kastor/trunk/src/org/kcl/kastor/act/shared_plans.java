@@ -61,4 +61,8 @@ public class shared_plans implements InternalAction {
 		return false;
 	}
 
+	public boolean canBeUsedInContext() {
+		return true;
+	}
+
 }
