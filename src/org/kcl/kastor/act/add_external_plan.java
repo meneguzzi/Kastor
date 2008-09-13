@@ -32,4 +32,9 @@ public class add_external_plan implements InternalAction {
 		return false;
 	}
 
+	public boolean canBeUsedInContext() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
