@@ -8,9 +8,7 @@ import org.kcl.nestor.agent.ModularAgent;
 public class KastorAgent extends ModularAgent {
 	
 	@Override
-	public TransitionSystem initAg(String asSrc) throws JasonException {
-		TransitionSystem ts = super.initAg(asSrc);
-		
-		return ts;
+	public void initAg(String asSrc) throws JasonException {
+		super.initAg(asSrc);
 	}
 }
