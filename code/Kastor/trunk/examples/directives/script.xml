@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- A script for testing the directives I added to Jason -->
 <script>
-	<step time="5">
+	<step time="0">
+		timeToRequest.
+	</step>
+	<step time="1">
 		a.
+		test.
 		startPlan.
 	</step>
 </script>
