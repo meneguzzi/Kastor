@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A script for testing the directives I added to Jason -->
+<script>
+	<step time="5">
+		a.
+		startPlan.
+	</step>
+</script>

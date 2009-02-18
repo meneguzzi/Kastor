@@ -1,0 +1,13 @@
+MAS kastorDirectives {
+    infrastructure: Centralised
+    environment: org.kcl.jason.env.scripted.ScriptedEnvironment("script.xml")
+    agents:
+        /* debug; */
+        requester;
+        sharer;
+    directives: pdb = kastor.PDB; 
+                ppx = org.kcl.kastor.patterns.PPX;
+                ca  = org.kcl.kastor.patterns.CA;
+                ep  = org.kcl.kastor.patterns.EP;
+                fhp = org.kcl.kastor.patterns.FHP;
+}
