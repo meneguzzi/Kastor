@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Feb 17, 2009 11:39:08 AM                                                        
+
+     KastorDirectives    
+     A test of the directives provided in Kastor
+                   
+     meneguzzi                                                                
+     ====================================================================== -->
+<project name="KastorDirectives" default="run">
+	<description>
+    	A test of the directives provided in Kastor
+    </description>
+	
+	<property name="project.dir" value="${basedir}/../../"/>
+
+	<property name="jasonJar" 		value="${project.dir}/lib/jason.jar" />
+	<property name="jasonEnvJar"	value="${project.dir}/lib/jasonenv.jar" />
+	<property name="build.dir" 		value="${project.dir}/bin/classes" />
+	<property name="build.test.dir" value="${project.dir}/bin/tests" />
+
+	<path id="run.classpath">
+		<pathelement location="${jasonJar}" />
+		<pathelement location="${build.dir}"/>
+	</path>
+	
+	<path id="project.classpath">
+		<path refid="run.classpath"/>
+		
+	</path>
+	
+	<path id="test.classpath">
+		<path refid="run.classpath"/>
+		<pathelement location="${JUNIT_HOME}/junit.jar" />
+	</path>
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="run" depends="init" description="Runs the agent System">
+		<java classname="jason.infra.centralised.RunCentralisedMAS">
+			<classpath refid="run.classpath"/>
+			<arg line="kastorDirectives.mas2j"/>
+		</java>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="init">
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+</project>
