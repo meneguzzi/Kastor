@@ -10,7 +10,6 @@ import jason.asSyntax.PlanBodyImpl;
 import jason.asSyntax.Pred;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
-import jason.asSyntax.PlanBody.BodyType;
 import jason.asSyntax.Trigger.TEOperator;
 import jason.asSyntax.Trigger.TEType;
 import jason.asSyntax.directives.Directive;

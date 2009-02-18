@@ -1,10 +1,15 @@
 preA.
 preB.
 
-{begin pdb}
+/* Including the plans from Kastor */
+{include ("kastor.asl")}
+
+/*Requesting plans from the sharer*/
++timeToRequest : true
+	<- !findCooperativePlans.
+
 +startPlan : true
 	<- !goal_conj([stuff]).
-{end}
 
 +!goal_conj([stuff]) : true
 	<- !remotedoStuff.
