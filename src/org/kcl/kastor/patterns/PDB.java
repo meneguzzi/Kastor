@@ -1,4 +1,4 @@
-package kastor;
+package org.kcl.kastor.patterns;
 
 import jason.asSemantics.Agent;
 import jason.asSyntax.ASSyntax;

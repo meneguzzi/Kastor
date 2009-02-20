@@ -11,36 +11,34 @@
 	<description>
     	A test of the directives provided in Kastor
     </description>
-	
-	<property name="project.dir" value="${basedir}/../../"/>
 
-	<property name="jasonJar" 		value="${project.dir}/lib/jason.jar" />
-	<property name="jasonEnvJar"	value="${project.dir}/lib/jasonenv.jar" />
-	<property name="build.dir" 		value="${project.dir}/bin/classes" />
-	<property name="build.test.dir" value="${project.dir}/bin/tests" />
+	<property name="project.dir" value="${basedir}/../.." />
+
+	<property name="jasonJar" value="${project.dir}/lib/jason.jar" />
+	<property name="jasonEnvJar" value="${project.dir}/lib/jasonenv.jar" />
+	<property name="kastorJar" value="${project.dir}/lib/kastor.jar" />
+
+	<property name="build.dir" value="${project.dir}/bin/classes" />
 
 	<path id="run.classpath">
+		<pathelement location="${build.dir}" />
 		<pathelement location="${jasonJar}" />
-		<pathelement location="${build.dir}"/>
+		<pathelement location="${jasonEnvJar}" />
+		<pathelement location="${kastorJar}" />
 	</path>
-	
+
 	<path id="project.classpath">
-		<path refid="run.classpath"/>
-		
-	</path>
-	
-	<path id="test.classpath">
-		<path refid="run.classpath"/>
-		<pathelement location="${JUNIT_HOME}/junit.jar" />
+		<path refid="run.classpath" />
+
 	</path>
 
 	<!-- ================================= 
           target: default              
          ================================= -->
 	<target name="run" depends="init" description="Runs the agent System">
-		<java classname="jason.infra.centralised.RunCentralisedMAS">
-			<classpath refid="run.classpath"/>
-			<arg line="kastorDirectives.mas2j"/>
+		<java classname="jason.infra.centralised.RunCentralisedMAS" fork="yes">
+			<classpath refid="run.classpath" />
+			<arg line="kastorDirectives.mas2j" />
 		</java>
 	</target>
 
@@ -48,7 +46,7 @@
           target: depends                      
          - - - - - - - - - - - - - - - - - -->
 	<target name="init">
-		<mkdir dir="${build.dir}"/>
+		<ant dir="${project.dir}" inheritall="no" target="jar" />
 	</target>
 
 </project>
