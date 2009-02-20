@@ -1,0 +1,9 @@
+AgentSpeak Actions
+------------------
+* Proper documentation of the software is highly desirable.
+
+* Need to convert the ma-prodcell example to the method of dynamic proxy
+  plan generation.
+
+* JUnit tests are not complete, and should be completed for a thorough 
+  validation of the implementation.

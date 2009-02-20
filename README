@@ -1,0 +1,24 @@
+Kastor is an implementation of an AgentSpeak interpreter extended with plan 
+patterns for the creation of distributed plans following the technique from 
+the paper Interaction among agents that plan. In Kastor, a developer can 
+define external plans for each agent through the EP plan pattern, which 
+creates a communication endpoint in the sharing agent allowing other agents 
+in the society to request this plan to be executed on their behalf. 
+
+Jason was created by Rafael H. Bordini, Jomi F. Hubner, et al.
+http://jason.sourceforge.net
+
+Peleus was created by Felipe Meneguzzi
+http://www.meneguzzi.eu/felipe/software.html#peleus
+
+Nestor was created by Felipe Meneguzzi
+http://www.meneguzzi.eu/felipe/software.html#nestor
+
+JasonEnvironment was created by Felipe Meneguzzi
+http://www.meneguzzi.eu/felipe/software.html#jasonenv
+
+First release: February 2009.
+Jason is distributed under LGPL (see file LICENSE).
+
+Java 1.5 is required to run this application, it is available
+at http://java.sun.com.
