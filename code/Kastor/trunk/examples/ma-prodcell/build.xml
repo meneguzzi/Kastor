@@ -16,7 +16,6 @@
 	<property name="debug" value="" />
 	<!-- use "-debug" to run in debug mode -->
 
-	<property name="workspace.location" value="c:/Local Files/workspace/" />
 	<property name="jasonJar" value="${workspace.location}/JasonSVN/build" />
 
 	<path id="project.classpath">

@@ -6,10 +6,10 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JasonSVN"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Peleus"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JasonEnvironment"/>
-	<classpathentry kind="lib" path="lib/jasonenv.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Nestor"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Nestor"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Peleus"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Iovis"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

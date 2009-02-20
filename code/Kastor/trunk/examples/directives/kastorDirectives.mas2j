@@ -5,7 +5,7 @@ MAS kastorDirectives {
         /* debug; */
         requester;
         sharer;
-    directives: pdb = kastor.PDB; 
+    directives: pdb = org.kcl.kastor.patterns.PDB; 
                 ppx = org.kcl.kastor.patterns.PPX;
                 ca  = org.kcl.kastor.patterns.CA;
                 ep  = org.kcl.kastor.patterns.EP;

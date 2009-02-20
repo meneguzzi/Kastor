@@ -3,26 +3,92 @@
      30 Aug 2007 13:27:44                                                        
 
      Kastor    
-     A cooperative agent.
+     A multiagent planning framework using Jason.
                    
      meneguzz                                                                
      ====================================================================== -->
 <project name="Kastor" default="jar">
-    <description>
-            A cooperative agent.
+	<description>
+    	A multiagent planning framework using Jason.
     </description>
 
-    <!-- ================================= 
+	<property name="build.dir" value="${basedir}/bin" />
+	<property name="build.test.dir" value="${project.dir}/bin/tests" />
+	<property name="kastorJar" value="${basedir}/lib/kastor.jar" />
+
+	<property name="jasonJar" value="${basedir}/lib/jason.jar" />
+	<property name="jasonEnvJar" value="${basedir}/lib/jasonenv.jar" />
+	<property name="nestorJar" value="${basedir}/lib/nestor.jar" />
+	<property name="peleusJar" value="${basedir}/lib/peleus.jar" />
+
+	<property name="dist.properties" value="${basedir}/bin/dist.properties" />
+	<property name="version" value="0.5" />
+	<property name="release" value="1" />
+
+	<path id="run.classpath">
+		<pathelement location="${build.dir}" />
+		<pathelement location="${jasonJar}" />
+		<pathelement location="${jasonEnvJar}"/>
+		<pathelement location="${peleusJar}"/>
+		<pathelement location="${nestorJar}"/>
+	</path>
+
+	<path id="project.classpath">
+		<path refid="run.classpath" />
+		<pathelement location="${JUNIT_HOME}/junit.jar" />
+	</path>
+	
+	<path id="test.classpath">
+		<path refid="run.classpath" />
+		<pathelement location="${JUNIT_HOME}/junit.jar" />
+	</path>
+
+
+	<!-- ================================= 
           target: jar              
          ================================= -->
-    <target name="jar" depends="init" description="--> A cooperative agent.">
-        
-    </target>
+	<target name="jar" depends="compile" description="--> A cooperative agent.">
+		<propertyfile file="${dist.properties}">
+			<entry key="version" value="${version}" />
+			<entry key="release" value="${release}" />
+			<entry default="0" key="build" operation="+" type="int" />
+			<entry key="build.date" type="date" value="now" />
+		</propertyfile>
+		<property file="${dist.properties}" />
 
-    <!-- - - - - - - - - - - - - - - - - - 
+		<jar jarfile="${kastorJar}">
+			<fileset dir="${build.dir}">
+				<include name="org/**/*.class" />
+			</fileset>
+			<manifest>
+				<attribute name="Main-Class" value="jason.infra.centralised.RunCentralisedMAS" />
+				<attribute name="Classpath" value="jason.jar" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+	<target name="compile" depends="init" description="Compiles the sources">
+		<javac srcdir="src" destdir="${build.dir}" debug="true" deprecation="true" optimize="true" nowarn="true" source="1.5" target="1.5">
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<!-- ================================= 
+		      target: clean              
+		     ================================= -->
+	<target name="clean" description="--> description">
+		<delete dir="${build.dir}" />
+	</target>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
           target: init                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="init">
-    </target>
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+	</target>
 
 </project>
