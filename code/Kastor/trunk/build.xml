@@ -21,27 +21,43 @@
 	<property name="nestorJar" value="${basedir}/lib/nestor.jar" />
 	<property name="peleusJar" value="${basedir}/lib/peleus.jar" />
 
-	<property name="dist.properties" value="${basedir}/bin/dist.properties" />
 	<property name="version" value="0.5" />
 	<property name="release" value="1" />
+	<property name="dist.properties" value="${basedir}/bin/dist.properties" />
+	<property name="dist.file" value="${basedir}/kastor-${version}.zip" />
+
 
 	<path id="run.classpath">
 		<pathelement location="${build.dir}" />
 		<pathelement location="${jasonJar}" />
-		<pathelement location="${jasonEnvJar}"/>
-		<pathelement location="${peleusJar}"/>
-		<pathelement location="${nestorJar}"/>
+		<pathelement location="${jasonEnvJar}" />
+		<pathelement location="${peleusJar}" />
+		<pathelement location="${nestorJar}" />
 	</path>
 
 	<path id="project.classpath">
 		<path refid="run.classpath" />
 		<pathelement location="${JUNIT_HOME}/junit.jar" />
 	</path>
-	
+
 	<path id="test.classpath">
 		<path refid="run.classpath" />
 		<pathelement location="${JUNIT_HOME}/junit.jar" />
 	</path>
+
+	<!-- ================================= 
+	      target: dist              
+	     ================================= -->
+	<target name="dist" depends="jar" description="Creates a zip for distribution">
+		<antcall target="clean" />
+		<zip destfile="${dist.file}">
+			<fileset dir="${basedir}">
+				<include name="**/*" />
+				<exclude name=".svn*" />
+			</fileset>
+
+		</zip>
+	</target>
 
 
 	<!-- ================================= 
@@ -77,10 +93,11 @@
 	</target>
 
 	<!-- ================================= 
-		      target: clean              
-		     ================================= -->
+	      target: clean              
+	     ================================= -->
 	<target name="clean" description="--> description">
 		<delete dir="${build.dir}" />
+		<delete file="${dist.file}" />
 	</target>
 
 
