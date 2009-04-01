@@ -36,22 +36,28 @@ public class EP implements Directive {
 			
 			//And then create the request responding plan
 			Pred trigLiteral = Pred.parsePred("request"+goal+"[source(S)]");
-			Trigger trigger = new Trigger(TEOperator.add, TEType.achieve,trigLiteral);
+			//Updated code to compile with newer version of Jason
+//			Trigger trigger = new Trigger(TEOperator.add, TEType.achieve,trigLiteral);
+//			
+//			//We also need a label
+//			Pred label = Pred.parsePred(trigLiteral.getFunctor()+"_"+trigLiteral.getArity());
+//			
+//			//The context is simply true
+//			LogicalFormula context = ASSyntax.parseFormula("true");
+//			
+//			//And finally add everything else we need to the plan body
+//			PlanBodyImpl planBody = new PlanBodyImpl();
+//			//This line originally caused an exception
+//			//planBody.add(new PlanBodyImpl(BodyType.achieve, goal));
+//			planBody.add(ASSyntax.parsePlanBody("!"+goal));
+//			planBody.add(ASSyntax.parsePlanBody(".send(S,tell,done("+goal+"))"));
+//			
+//			Plan p = new Plan(label, trigger, context, planBody);
 			
-			//We also need a label
-			Pred label = Pred.parsePred(trigLiteral.getFunctor()+"_"+trigLiteral.getArity());
-			
-			//The context is simply true
-			LogicalFormula context = ASSyntax.parseFormula("true");
-			
-			//And finally add everything else we need to the plan body
-			PlanBodyImpl planBody = new PlanBodyImpl();
-			//This line originally caused an exception
-			//planBody.add(new PlanBodyImpl(BodyType.achieve, goal));
-			planBody.add(ASSyntax.parsePlanBody("!"+goal));
-			planBody.add(ASSyntax.parsePlanBody(".send(S,tell,done("+goal+"))"));
-			
-			Plan p = new Plan(label, trigger, context, planBody);
+			Plan p = ASSyntax.parsePlan("@"+trigLiteral.getFunctor()+"_"+trigLiteral.getArity()+
+					                    "+!request"+goal+"[source(S)] : true" +
+					                    "  <- !"+goal+";"+
+					                    ".send(S,tell,done("+goal+")).");
 			newAg.getPL().add(p);
 			
 			return newAg;
