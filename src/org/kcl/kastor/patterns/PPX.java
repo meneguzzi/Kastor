@@ -10,6 +10,7 @@ import jason.asSyntax.PlanBodyImpl;
 import jason.asSyntax.Pred;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
+import jason.asSyntax.PlanBody.BodyType;
 import jason.asSyntax.Trigger.TEOperator;
 import jason.asSyntax.Trigger.TEType;
 import jason.asSyntax.directives.Directive;
@@ -72,11 +73,11 @@ public class PPX implements Directive {
 			
 			PlanBodyImpl planBody = new PlanBodyImpl();
 			
-			planBody.add(ASSyntax.parsePlanBody(".send("+targetAgent+","+"achieve,"+"request"+remoteGoal+")"));
-			planBody.add(ASSyntax.parsePlanBody(".wait(\"+done("+remoteGoal+")[source("+targetAgent+")]\")"));
+			planBody.add(new PlanBodyImpl(BodyType.action, ASSyntax.parseTerm(".send("+targetAgent+","+"achieve,"+"request"+remoteGoal+")")));
+			planBody.add(new PlanBodyImpl(BodyType.action, ASSyntax.parseTerm(".wait(\"+done("+remoteGoal+")[source("+targetAgent+")]\")")));
 			
 			for (Term term : effects) {
-				planBody.add(ASSyntax.parsePlanBody("+"+term));
+				planBody.add(new PlanBodyImpl(BodyType.addBel, term));
 			}
 			
 			Plan p = new Plan(label,trig,context,planBody);

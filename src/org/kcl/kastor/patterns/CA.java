@@ -46,14 +46,20 @@ public class CA implements Directive {
 				throw new Exception("CA directive expects one check inner plan.");
 			}
 			
-			Pred label 			   = Pred.parsePred("check_2");
 			
-			Trigger trig 		   = ASSyntax.parseTrigger("+?check(A,G)");
-			LogicalFormula context = ASSyntax.parseFormula("true");
-			PlanBody 	  planBody = new PlanBodyImpl();
-			planBody.add(ASSyntax.parsePlanBody(".print(\"Checking agent \",A,\" for goal \", G)"));
+			// Removed these calls to conform to current version of ASSyntax
+//			Pred label 			   = Pred.parsePred("check_2");
+//			
+//			Trigger trig 		   = ASSyntax.parseTrigger("+?check(A,G)");
+//			LogicalFormula context = ASSyntax.parseFormula("true");
+//			PlanBody 	  planBody = new PlanBodyImpl();
+//			planBody.add(ASSyntax.parsePlanBody(".print(\"Checking agent \",A,\" for goal \", G)"));
+//			
+//			Plan p = new Plan(label, trig, context, planBody);
 			
-			Plan p = new Plan(label, trig, context, planBody);
+			Plan p = ASSyntax.parsePlan("@check_2 " +
+					                    "+?check(A,G) : true" +
+					                    "<- .print(\"Checking agent \",A,\" for goal \", G).");
 			newAg.getPL().add(p);
 			return newAg;
 		} catch (Exception e) {

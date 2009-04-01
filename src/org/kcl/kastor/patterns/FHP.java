@@ -41,12 +41,18 @@ public class FHP implements Directive {
 				Trigger newTrig        = new Trigger(TEOperator.del, trig.getType(), trig.getLiteral().copy());
 				//TODO change the context to a test of readiness of the new agent
 				LogicalFormula context = ASSyntax.parseFormula("org.kcl.kastor.act.agent("+remoteAgent+")");
-				PlanBody planBody      = new PlanBodyImpl();
-				planBody.add(ASSyntax.parsePlanBody(".remove_plan("+label+")"));
-				planBody.add(ASSyntax.parsePlanBody(".remove_plan("+newLabel+")"));
+				//Removed 
+//				PlanBody planBody      = new PlanBodyImpl();
+//				planBody.add(ASSyntax.parsePlanBody(".remove_plan("+label+")"));
+//				planBody.add(ASSyntax.parsePlanBody(".remove_plan("+newLabel+")"));
+//				
+//				
+//				Plan fhp = new Plan(newLabel, newTrig, context, planBody);
 				
-				
-				Plan fhp = new Plan(newLabel, newTrig, context, planBody);
+				Plan fhp = ASSyntax.parsePlan("@"+newLabel.toString()+
+						                      newTrig.toString()+":"+context.toString()+
+						                      "   <- .remove_plan("+label+");" +
+						                      "      .remove_plan("+newLabel+").");
 				newAg.getPL().add(plan);
 				newAg.getPL().add(fhp);
 			}
